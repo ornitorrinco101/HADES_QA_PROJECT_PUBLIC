@@ -1,0 +1,10 @@
+hidden_units: 8
+input_size: 50
+kernel_size_convolution: 2
+kernel_size_maxpool: 2
+lr: 0.0001
+output_dim: 4
+padding: 1
+stride: 1
+version: 3
+what_dim: 2D

@@ -1,0 +1,13 @@
+anomaly_threshold: 0.1
+hidden_units: 32
+input_dims:
+- 21
+- 21
+- 51
+- 101
+- 151
+kernel_size_convolution: 3
+kernel_size_maxpool: 2
+lr: 0.001
+padding: 1
+stride: 1

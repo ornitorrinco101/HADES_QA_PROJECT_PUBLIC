@@ -1,0 +1,6 @@
+__pycache__/
+.vscode/
+.env
+*.pyc
+hist_dataset/HADES_t1_dataset/numpy/10000_events/RICH_CalsXY.npy
+HADES_t1_dataset/numpy/10000_events/RICH_CalsXY.npy

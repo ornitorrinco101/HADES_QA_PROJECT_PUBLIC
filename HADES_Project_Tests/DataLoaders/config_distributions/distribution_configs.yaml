@@ -1,0 +1,89 @@
+# distribution_configs.yaml
+distributions:
+  START_beam_mod1:
+    name: "START_beam_mod1"
+    data_generator: "lambda: START_beam_profile(mod=1,numbins=20)"
+    hist_params:
+      bins: 20
+    anomalies:
+      - name: "noisy_bin"
+        function: "lambda h, e: inject_noisy_bin(h, e, bin_idx=np.random.choice(np.where(h > 0)[0]), factor=np.random.uniform(5, 10))"
+      - name: "empty_bin"
+        function: "lambda h, e: inject_empty_bin(h, e, bin_idx=np.random.choice(np.where(h > 0)[0]))"
+      - name: "uniform_noise"
+        function: "lambda h, e: inject_uniform_noise(h, e, noise_factor=np.random.uniform(0.05, 0.2))"
+      - name: "sparse_bin"
+        function: "lambda h, e: inject_sparse_bins(h, e, bin_chosen=np.random.choice(np.where(h > 10)[0]), factor=np.random.uniform(0.1, 0.7))" #only sparse if more than 10 counts
+
+  START_beam_mod2:
+    name: "START_beam_mod2"
+    data_generator: "lambda: START_beam_profile(mod=2,numbins=20)"
+    hist_params:
+      bins: 20
+    anomalies:
+      - name: "noisy_bin"
+        function: "lambda h, e: inject_noisy_bin(h, e, bin_idx=np.random.choice(np.where(h > 0)[0]), factor=np.random.uniform(5, 10))"
+      - name: "empty_bin"
+        function: "lambda h, e: inject_empty_bin(h, e, bin_idx=np.random.choice(np.where(h > 0)[0]))"
+      - name: "uniform_noise"
+        function: "lambda h, e: inject_uniform_noise(h, e, noise_factor=np.random.uniform(0.05, 0.2))"
+      - name: "sparse_bin"
+        function: "lambda h, e: inject_sparse_bins(h, e, bin_chosen=np.random.choice(np.where(h > 10)[0]), factor=np.random.uniform(0.1, 0.7))" #only sparse if more than 10 counts
+      - name: "comb_artifact"
+        function: "lambda h, e: inject_comb_artifact(h, e, spacing=np.random.randint(2, 4), factor=np.random.uniform(0.3, 0.5))"
+
+  RICH_trends:
+    name: "RICH_trends"
+    data_generator: "lambda: RICH_total_mult(minval=100, maxval=140, averaging_param=5, numbins=51)"
+    hist_params:
+      bins: 50
+    anomalies:
+      - name: "skew"
+        function: "lambda h, e: inject_skew(h, e, factor=np.random.choice([np.random.uniform(0.5, 0.9), np.random.uniform(1.1, 1.5)]))"
+      - name: "noisy_bin"
+        function: "lambda h, e: inject_noisy_bin(h, e, bin_idx=np.random.choice(np.where(h > 0)[0]), factor=np.random.uniform(1.2, 2.0))"
+      - name: "sparse_bin"
+        function: "lambda h, e: inject_sparse_bins(h, e, bin_chosen=np.random.choice(np.where(h > 0)[0]), factor=np.random.uniform(0.1, 0.8))"
+      - name: "comb_artifact"
+        function: "lambda h, e: inject_comb_artifact(h, e, spacing=np.random.randint(2, 11), factor=np.random.uniform(0.1, 0.8))"
+      - name: "edge_effects"
+        function: "lambda h, e: inject_edge_effects(h, e, region=np.random.uniform(0.1, 0.4), factor=np.random.uniform(1.2, 1.5))"
+
+  RICH_CalsXY:
+    name: "RICH_CalsXY"
+    data_generator: "lambda: RICH_CalsXY(root_dir, og_size=572, kernel_downsample=3, add_noise=True, noise_factor=0.2, lmax=0.25)"
+    second_downsampler: "lambda sample: RICH_CalsXY_downsample(sample,kernel_size=3)"
+    hist_params: {}
+    anomalies:
+      - name: "empty_patch"
+        function: "lambda img, _,kd=3: zero_out_patch(img, center_x=int(np.random.uniform(40//kd, 530//kd)), center_y=int(np.random.uniform(70//3, 500//kd)), patch_width=30//kd, patch_height=50//kd)"
+      - name: "noisy_patch"
+        function: "lambda img, _,kd=3: noise_in_patch(img, center_x=int(np.random.uniform(40//kd, 530//kd)), center_y=int(np.random.uniform(70//kd, 500//kd)), patch_width=30//kd, patch_height=50//kd, noise_factor=np.random.uniform(0.2, 0.6))"
+      - name: "sparse_patch"
+        function: "lambda img, _,kd=3: sparse_in_patch(img, center_x=int(np.random.uniform(40//kd, 530//kd)), center_y=int(np.random.uniform(70//kd, 500//kd)), patch_width=30//kd, patch_height=50//kd, sparse_factor=np.random.uniform(0.2, 0.6))"
+
+  ToF_multiplicity:
+    name: "ToF_multiplicity"
+    data_generator: "lambda: ToF_multiplicity(nsamples=4000, numbins=100)"
+    hist_params:
+      bins: 100
+    anomalies:
+      - name: "uniform_noise"
+        function: "lambda h, e: inject_uniform_noise(h, e, noise_factor=np.random.uniform(0.01, 0.4))"
+      - name: "skew"
+        function: "lambda h, e: inject_shift_skew(h, e, skew_factor=np.random.choice([np.random.uniform(-20, -5), np.random.uniform(10, 20)]), tail_weight=1.0, shift=0.0)"
+      - name: "comb_artifact"
+        function: "lambda h, e: inject_comb_artifact(h, e, spacing=np.random.randint(2, 11), factor=np.random.uniform(0.3, 0.6))"
+
+  ToF_sum:
+    name: "ToF_sum"
+    data_generator: "lambda: ToF_sum(nsamples=6000, noise_factor=0.15, numbins=150)"
+    hist_params:
+      bins: 150
+    anomalies:
+      - name: "uniform_noise"
+        function: "lambda h, e: inject_uniform_noise(h, e, noise_factor=np.random.uniform(0.15, 0.4))"
+      - name: "skew"
+        function: "lambda h, e: inject_shift_skew(h, e, skew_factor=np.random.choice([np.random.uniform(-30, -10), np.random.uniform(1.1, 3.0)]), tail_weight=1.0, shift=0.0)"
+      - name: "secondary_peak"
+        function: "lambda h, e: inject_secondary_peak(h, e, pos=np.random.randint(0, 10), width=np.random.randint(1, 4), height=h.mean() * np.random.uniform(0.003, 0.006))"

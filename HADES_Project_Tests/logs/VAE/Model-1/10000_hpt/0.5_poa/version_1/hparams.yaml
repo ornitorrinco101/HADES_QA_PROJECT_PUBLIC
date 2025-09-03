@@ -1,0 +1,10 @@
+beta: 1.0
+hidden_units: 32
+kernel_size_convolution: 2
+kernel_size_maxpool: 2
+latent_dim: 256
+lr: 0.001
+padding: 1
+stride: 1
+version: 1
+what_dim: 1D
