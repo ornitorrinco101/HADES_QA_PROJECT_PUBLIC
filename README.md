@@ -9,7 +9,7 @@ This repository features initial tests evaluating the performance of supervised/
 
 - [@ornitorrinco101](https://www.github.com/ornitorrinco101)
 
-- [@KladovValentin]((https://github.com/KladovValentin)) (initial code)
+- Initial code: [@KladovValentin](https://github.com/KladovValentin)
 ## Setup
 
 Project requires python libraries within req.txt. 
@@ -66,7 +66,7 @@ To implement:
 
 - `CNN`: Supervised model logs.
     - `Model-1`: 
-        Evaluation with original [@KladovValentin]((https://github.com/KladovValentin/anomalyDetectionHades)) code. 
+        Evaluation with original [@KladovValentin](https://github.com/KladovValentin/anomalyDetectionHades) code. 
     - `Model-2`: 
         Evaluation with `HADES_5S_1D()`.
     - `Model-3`: 
