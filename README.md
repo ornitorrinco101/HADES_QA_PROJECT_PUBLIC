@@ -9,8 +9,7 @@ This repository features initial tests evaluating the performance of supervised/
 
 - [@ornitorrinco101](https://www.github.com/ornitorrinco101)
 
-- Initial code:
-  [@KladovValentin]((https://github.com/KladovValentin))
+- [@KladovValentin]((https://github.com/KladovValentin)) (initial code)
 ## Setup
 
 Project requires python libraries within req.txt. 
